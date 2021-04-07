@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 L=8.0
 Np=1000
 Norb = 5
-lamb = 8
+lamb = 50
 maxiter = 200
 Nbasis = 100
 x = np.linspace(0,L,Np)
