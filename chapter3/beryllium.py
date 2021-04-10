@@ -20,11 +20,14 @@ def slater(order,alpha):
     func = N*r[:]**(order-1)*np.exp(-alpha*r[:])
     return r[:]*func
 def slater_derivative(order,alpha):
+    #-0.5 * second derivative of Slater functions. The kinetic energy part
+    #in other words.
     N = (2*alpha)**order*np.sqrt(2*alpha/math.factorial(2*order))
     dfunc = N*(-alpha*np.exp(-alpha*r[:])*r[:] + np.exp(-alpha*r[:]))
     ddfunc = N*(alpha**2*np.exp(-alpha*r[:])*r[:] -alpha*np.exp(-alpha*r[:]) -alpha*np.exp(-alpha*r[:]) )
     return -0.5*ddfunc
 def basis_function(i):
+    #This function and the next generate the basis.
     alphastart = 0.3
     alphastep = 0.05
     if i<100:
@@ -114,6 +117,7 @@ def get_initial_potential():
         if Z_eff[i] < 1:
             Z_eff[i] = 1
     return  -Z_eff / r[:]
+#Initialization. We get the overlap and initial TF potential.
 overlap = get_overlap()
 
 H = np.zeros((N,N))
@@ -129,6 +133,7 @@ rho = initrho
 prevrho = initrho
 maxiter = 200
 alpha = 0.2
+#Standard KS potential.
 for i in range(maxiter):
     H = hamiltonian(rho)
     energies,vec=eigh(H,b=overlap)
